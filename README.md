@@ -1,7 +1,7 @@
 # Json Exporter
-![TravisCI build status](https://travis-ci.org/tolleiv/json-exporter.svg?branch=master)
-[![Docker Build Statu](https://img.shields.io/docker/build/tolleiv/json-exporter.svg)](https://hub.docker.com/r/tolleiv/json-exporter/)
-
+[![Docker Build Statu](https://img.shields.io/docker/build/ustiuzhanin/json-exporter.svg)](https://hub.docker.com/r/ustiuzhanin/json-exporter/)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/UstyuzhaninAV/json_exporter)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/ustyuzhaninAV/json_exporter)
 This Prometheus exporter operates similar to the Blackbox exporters. It downloads a JSON file and provides a numerical gauge value from within that file.
 Which value to pick is defined through JsonPath.
 
@@ -14,9 +14,9 @@ Which value to pick is defined through JsonPath.
 
     docker build -t json_exporter .
     docker -d -p 9116:9116 --name json_exporter json_exporter
-   
+
 The related metrics can then be found under:
-   
+
     http://localhost:9116/probe?target=http://validate.jsontest.com/?json=%7B%22key%22:%22value%22%7D&jsonpath=$.parse_time_nanoseconds
 
 ## Prometheus Configuration
