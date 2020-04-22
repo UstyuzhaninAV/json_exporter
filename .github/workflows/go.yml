@@ -64,13 +64,12 @@ jobs:
         project_path: "./cmd/test-binary"
         binary_name: "test-binary"
   docker-publish:
-    name: Publish Docker
-    runs-on: ubuntu-latest
+    runs-on: debian-latest
     steps:
     - uses: actions/checkout@master
     - name: Publish to Registry
-    - uses: elgohr/Publish-Docker-Github-Action@master
+      uses: elgohr/Publish-Docker-Github-Action@master
       with:
-       name: json_exporter/json_exporter
+        name: myDocker/repository
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
