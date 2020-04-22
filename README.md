@@ -2,6 +2,7 @@
 ![GitHub code size in bytes](https://img.shields.io/github/repo-size/UstyuzhaninAV/json_exporter)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/UstyuzhaninAV/json_exporter)
 ![.github/workflows/main.yml](https://github.com/UstyuzhaninAV/json_exporter/workflows/.github/workflows/main.yml/badge.svg?branch=master)
+![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/ustiuzhanin/json_exporter)
 
 This Prometheus exporter operates similar to the Blackbox exporters. It downloads a JSON file and provides a numerical gauge value from within that file.
 Which value to pick is defined through JsonPath.
