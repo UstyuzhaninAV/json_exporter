@@ -1,6 +1,6 @@
 # Json Exporter
 ![GitHub code size in bytes](https://img.shields.io/github/repo-size/UstyuzhaninAV/json_exporter)
-![.github/workflows/main.yml](https://github.com/UstyuzhaninAV/json_exporter/workflows/.github/workflows/go.yml/badge.svg?branch=master)
+![.github/workflows/main.yml](https://github.com/UstyuzhaninAV/json_exporter/workflows/.github/workflows/main.yml/badge.svg?branch=master)
 
 This Prometheus exporter operates similar to the Blackbox exporters. It downloads a JSON file and provides a numerical gauge value from within that file.
 Which value to pick is defined through JsonPath.
