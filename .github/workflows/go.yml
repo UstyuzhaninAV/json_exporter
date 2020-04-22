@@ -2,12 +2,24 @@ name: Go
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+    tags:
+    - '*'
 jobs:
-
+  formater:
+    name: Golang Formatter
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: 0
+    - name: Golang Formatter
+      uses: sladyn98/auto-go-format@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACTIONS }}
+    - name: Linter check
+      uses: Jerome1337/golint-action@v1.0.1
+      with:
+        golint-path: './src/...'
   build:
     name: Build
     runs-on: debian-latest
@@ -32,3 +44,33 @@ jobs:
 
     - name: Build
       run: go build -v .
+
+  releases-matrix:
+    name: Release Go Binary
+    runs-on: debian-latest
+    strategy:
+      matrix:
+        # build and publish in parallel: linux/386, linux/amd64, windows/386, windows/amd64, darwin/386, darwin/amd64
+        goos: [linux, windows, darwin]
+        goarch: ["386", amd64]
+    steps:
+    - uses: actions/checkout@master
+    - uses: wangyoucao577/go-release-action@master
+      with:
+        github_token: ${{ secrets.ACTIONS }}
+        goos: ${{ matrix.goos }}
+        goarch: ${{ matrix.goarch }}
+        goversion: "https://dl.google.com/go/go1.13.1.linux-amd64.tar.gz"
+        project_path: "./cmd/test-binary"
+        binary_name: "test-binary"
+  docker-publish:
+    name: Publish Docker
+          runs-on: ubuntu-latest
+          steps:
+          - uses: actions/checkout@master
+          - name: Publish to Registry
+            uses: elgohr/Publish-Docker-Github-Action@master
+            with:
+              name: json_exporter/json_exporter
+              username: ${{ secrets.DOCKER_USERNAME }}
+              password: ${{ secrets.DOCKER_PASSWORD }}
