@@ -150,12 +150,15 @@ func probeHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		} else if str, ok := res.(string); ok {
 			number, err = strconv.ParseFloat(str, 64)
-			if err != nil {
-				http.Error(w, "values is string but cannot be converted to Float64", http.StatusInternalServerError)
-				log.Printf("%v(%v) could not be parsed to Float64", res, reflect.TypeOf(res))
-			}
+	    if err != nil {
+				number_string, err := strconv.Atoi(number)
+				if err != nil {
+					http.Error(w, "values is string but cannot be converted to Float64", http.StatusInternalServerError)
+					log.Printf("%v(%v) could not be parsed to Float64", res, reflect.TypeOf(res))
+				}
+	    }
 			probeSuccessGauge.Set(1)
-			valueGauge.Set(number * multiple)
+			valueGauge.Set(number_string * multiple)
 		} else if slice, ok := res.([]interface{}); ok {
 			probeSuccessGauge.Set(1)
 			valueGauge.Set(float64(len(slice)))
